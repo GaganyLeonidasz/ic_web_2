@@ -11,7 +11,7 @@ class StoreUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreUsersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>'required',
+            'email'=>'required|email|umique:users,email',
+            'password'=>'required'
         ];
     }
 }

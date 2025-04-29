@@ -11,7 +11,7 @@ class UsersPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Users $user): bool
     {
         return false;
     }
@@ -19,7 +19,7 @@ class UsersPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Users $users): bool
+    public function view(Users $user, Users $users): bool
     {
         return false;
     }
@@ -27,7 +27,7 @@ class UsersPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Users $user): bool
     {
         return false;
     }
@@ -35,7 +35,7 @@ class UsersPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Users $users): bool
+    public function update(Users $user, Users $users): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class UsersPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Users $users): bool
+    public function delete(Users $user, Users $users): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class UsersPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Users $users): bool
+    public function restore(Users $user, Users $users): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class UsersPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Users $users): bool
+    public function forceDelete(Users $user): bool
     {
         return false;
     }
