@@ -18,11 +18,13 @@ class Users extends Authenticatable
         'name',
         'email',
         'password',
+        'password_confirmation'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'password_confirmation'
     ];
 
     protected function casts(): array

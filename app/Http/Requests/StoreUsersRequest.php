@@ -24,7 +24,8 @@ class StoreUsersRequest extends FormRequest
         return [
             'name'=>'required',
             'email'=>'required|email|umique:users,email',
-            'password'=>'required'
+            'password'=>'required',
+            'password_confirmation'=>'required'
         ];
     }
 }

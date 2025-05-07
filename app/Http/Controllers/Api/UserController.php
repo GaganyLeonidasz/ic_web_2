@@ -40,7 +40,8 @@ class UserController extends Controller
             $validateUser = Validator::make($request->all(),[
                 'name'=>'required',
                 'email'=>'required|email|unique:users,email',
-                'password'=>'required'
+                'password'=>'required',
+                'password_confirmation'=>'required'
             ]);
             if ($validateUser->fails()) {
                 return response()->json([
@@ -53,6 +54,7 @@ class UserController extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password),
+                'password_confirmation'=>Hash::make($request->password_confirmation)
             ]);
             return response()->json([
                 'status'=>true,
