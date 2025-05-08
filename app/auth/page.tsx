@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { myAppHook } from "@/context/AppProvider";
 import {useRouter} from "next/navigation";
 
+//form adat tipus
 interface formData {
     name?:string,
     email:string,
@@ -13,34 +14,40 @@ interface formData {
 
 const Auth: React.FC = () => {
 
+    //bevan e jelentketve
     const [isLogin,setIsLogin] = useState<boolean>(true)
+    //form data
     const [formdata,setFormData]=useState<formData>({
         name:"",
         email:"",
         password:"",
         password_confirmation:""
     })
-
+    //iranyito
     const router = useRouter();
-
+    //hook letrehozasa
     const {login,register,authToken,isLoading} = myAppHook()
     useEffect(()=>{
+        //ha be van jelentkezve -> dashboard
         if (authToken) {
             router.push("/dashboard")
             return
         }
     },[authToken,isLoading])
-
+    //adat beadas eseten
     const handleOnChangeInput = (event:React.ChangeEvent<HTMLInputElement>)=>{
         setFormData({
+            //beallitja az adatokat
             ...formdata,
             [event.target.name]:event.target.value
         })
     }
-
+    //Lekezeli a form bekuldeset
     const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
+        //ha letezik a fiok
         if (isLogin) {
+            //jelentkezzen be
             try{
                 await login(formdata.email,formdata.password);
             }
@@ -48,8 +55,10 @@ const Auth: React.FC = () => {
                 console.log(`Authentication error ${Error}`)
             }
         }
+        //ha nem letezik
         else{
             try{
+            //regisztraljon
                 await register(formdata.name!,formdata.email,formdata.password,formdata.password_confirmation!);
             }
             catch(Error){
