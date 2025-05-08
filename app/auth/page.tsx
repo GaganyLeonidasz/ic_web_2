@@ -57,69 +57,102 @@ const Auth: React.FC = () => {
             }
         }
     }
+    const backgroundImageUrl = "/img/home_background.jpg";
 
-    return <>
-         <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="card p-4" style={{width: "400px"}}>
-            <h3 className="text-center">{isLogin ? "Login":"Register"}</h3>
-            <form onSubmit={handleFormSubmit}>
-                {
-                    !isLogin && (
-                    <input className="form-control mb-2" 
-                    name="name" 
-                    type="text"
-                    value={formdata.name}
-                    onChange={handleOnChangeInput} 
-                    placeholder="Name" 
-                    required
-                    />
-                )
-                }
+return (
+  <>
+    <style>{`
+      .bg-image {
+        background-image: url('${backgroundImageUrl}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        color: white;
+        height: 100vh; /* Full viewport height */
+      }
+      .bg-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+      }
+      .bg-image > .content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Full height for centering */
+      }
+    `}</style>
 
-                <input className="form-control mb-2" 
-                name="email" 
-                type="email"
-                value={formdata.email}
-                onChange={handleOnChangeInput}  
-                placeholder="Email" 
+    <div className="bg-image">
+      <div className="content">
+        <div className="card p-4" style={{ width: "400px" }}>
+          <h3 className="text-center">{isLogin ? "Login" : "Register"}</h3>
+          <form onSubmit={handleFormSubmit}>
+            {!isLogin && (
+              <input
+                className="form-control mb-2"
+                name="name"
+                type="text"
+                value={formdata.name}
+                onChange={handleOnChangeInput}
+                placeholder="Name"
                 required
-                />
+              />
+            )}
 
-                <input className="form-control mb-2" 
-                name="password" 
+            <input
+              className="form-control mb-2"
+              name="email"
+              type="email"
+              value={formdata.email}
+              onChange={handleOnChangeInput}
+              placeholder="Email"
+              required
+            />
+
+            <input
+              className="form-control mb-2"
+              name="password"
+              type="password"
+              value={formdata.password}
+              onChange={handleOnChangeInput}
+              placeholder="Password"
+              required
+            />
+            {!isLogin && (
+              <input
+                className="form-control mb-2"
+                name="password_confirmation"
                 type="password"
-                value={formdata.password}
-                onChange={handleOnChangeInput}  
-                placeholder="Password" 
+                value={formdata.password_confirmation}
+                onChange={handleOnChangeInput}
+                placeholder="Confirm Password"
                 required
-                />
-                {
-                    !isLogin &&(
-                    <input className="form-control mb-2" 
-                    name="password_confirmation" 
-                    type="password"
-                    value={formdata.password_confirmation}
-                    onChange={handleOnChangeInput}  
-                    placeholder="Confirm Password" 
-                    required
-                    />
-                    )
-                }
-                <button className="btn btn-primary w-100" type="submit">{isLogin?"Login":"Register"}</button>
-            </form>
+              />
+            )}
+            <button className="btn btn-primary w-100" type="submit">
+              {isLogin ? "Login" : "Register"}
+            </button>
+          </form>
 
-            <p className="mt-3 text-center">
-                {isLogin ? "Don't have an account? ":"Already have an account? "}
-                <span onClick={()=>setIsLogin(!isLogin)} style={{cursor:"pointer"}}>
-                    {
-                        isLogin ? "Register":"Login"
-                    }
-                </span>
-            </p>
+          <p className="mt-3 text-center">
+            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            <span onClick={() => setIsLogin(!isLogin)} style={{ cursor: "pointer" }}>
+              {isLogin ? "Register" : "Login"}
+            </span>
+          </p>
         </div>
+      </div>
     </div>
-        
-    </>
+  </>
+);
 }
-
 export default Auth;
