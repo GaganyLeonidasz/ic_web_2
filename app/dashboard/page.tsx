@@ -37,6 +37,7 @@ const Dashboard: React.FC = () => {
                     Authorization:`Bearer ${authToken}`,
                     "Content-Type":"multipart/form-data",
                 }
+<<<<<<< HEAD
               })
             //Alert sikeres feltoltesnel,adatok alaphelyzetbe allitasa
             if (response.data.status) {
@@ -51,6 +52,10 @@ const Dashboard: React.FC = () => {
                 }
             }
             //Error logolasa
+=======
+              })  
+              console.log(response)
+>>>>>>> parent of 09cb2d1 (Frontend login register fajl feltoltes veglegesitve)
             } catch (error) {
                 console.log(error)
             }
