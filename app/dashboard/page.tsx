@@ -58,7 +58,8 @@ const Dashboard: React.FC = () => {
                 toast.success(response.data.message)
                 setFormData({
                     "file":"",
-                    "bannerInput":null
+                    "bannerInput":null,
+                    id:0
                 })
                 //File input alaphelyzetbe allitasa
                 if (fileRef.current) {
