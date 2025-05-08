@@ -13,32 +13,11 @@ use Throwable;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        /*$users = Users::all();
-        return response()->json([$users, "msg" => "A felhasználók lekérése sikeresen megtörtént."]);*/
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function register(Request $request)
     {
         try{
-            //$validateUser= $request->validated();
             $validateUser = Validator::make($request->all(),[
-                'name'=>'required',
+                'name'=>'required|string',
                 'email'=>'required|email|unique:users,email',
                 'password'=>'required',
                 'password_confirmation'=>'required'
@@ -46,20 +25,19 @@ class UserController extends Controller
             if ($validateUser->fails()) {
                 return response()->json([
                     'status'=>false,
-                    'message'=> 'validation error',
+                    'message'=> 'Validációs hiba',
                     'errors'=>$validateUser->errors()
                 ],401);
             }
             $user = Users::create([
                 'name'=>$request->name,
                 'email'=>$request->email,
-                'password'=>Hash::make($request->password),
-                'password_confirmation'=>Hash::make($request->password_confirmation)
+                'password'=>$request->password,
+                'password_confirmation'=>$request->password_confirmation
             ]);
             return response()->json([
                 'status'=>true,
-                'message'=>'User Created Succesfully',
-                'token'=>$user->createToken("API TOKEN")->plainTextToken
+                'message'=>'Felhasználó sikeresen létrejött',
             ],200);
         } 
         catch(\Throwable $th){
@@ -68,15 +46,8 @@ class UserController extends Controller
                 'message' =>$th->getMessage()
             ],500);
         }
-
-        /*$user = Users::create($request->all());
-        return response()->json([$user, "msg" => "Hozzáadás sikeresen megtörtént."]);*/
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request)
+    public function login(Request $request)
     {
         try{
             $validateUser = Validator::make($request->all(),[
@@ -86,21 +57,21 @@ class UserController extends Controller
             if ($validateUser->fails()) {
                 return response()->json([
                     'status'=>false,
-                    'message'=>'validation error',
+                    'message'=>'Validációs hiba',
                     'errors'=> $validateUser->errors()
                 ],401);
             }
 
-            if (Auth::attempt($request->only(['email',Hash::check('password','password')]))){
+            if (!Auth::attempt($request->only(['email','password']))){
                 return response()->json([
                     'status'=>false,
-                    'message'=>'Az email és jelszó nem egyezik egy felhasználóval sem'
+                    'message'=>'Az email és jelszó nem egyezik egy felhasználóéval sem'
                 ],401);
             }
             $user = Users::where('email',$request->email)->first();
             return response()->json([
                 'status'=>true,
-                'message'=>'User logged in successfully',
+                'message'=>'Felhasználó sikeresen belépett',
                 'token'=>$user->createToken("API TOKEN")->plainTextToken
             ],200);
         } catch(Throwable $th){
@@ -110,27 +81,25 @@ class UserController extends Controller
             ],500);
         }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Users $users)
+    public function profile()
     {
-        //
-    }
+        $user = Auth::user();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUsersRequest $request, Users $users)
+        return response()->json([
+            "status"=>true,
+            "message"=>"Felhasználó profil adat",
+            "user"=>$user
+        ]);
+    }
+    public function logout()
     {
-        $users->update($request->all());
-        return response()->json([$users, "msg" => "A felhasználó frissítése sikeresen megtörtént."]);
-    }
+        Auth::logout();
 
-    /**
-     * Remove the specified resource from storage.
-     */
+        return response()->json([
+            "status"=>true,
+            "message"=>"Felhasználó sikeresen kilépett",
+        ]);
+    }
     public function destroy(Users $users)
     {
         $users->delete();

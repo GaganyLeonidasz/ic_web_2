@@ -4,72 +4,64 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Saves;
-use App\Models\Users;
-use App\Http\Requests\StoreSavesRequest;
-use App\Http\Requests\UpdateSavesRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class SavesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Users $user)
+    public function index()
     {
-        $allsaves = Saves::all();
-        $saves = $allsaves->where('userId'== "$user->id");
-        return response()->json([$saves, "msg" => "A mentés lekérése sikeresen megtörtént."]);
+        $user_id= Auth::id();
+        $saves = Saves::where("users_Id",$user_id)->get()->map(function($save){
+            $save->save = $save->save ? asset("storage/".$save->save):null;
+            return $save;
+        });
+        return response()->json([
+            "status"=>true, 
+            "saves" => $saves
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request)
     {
-        //
-    }
+        try {
+            $data["users_Id"] = Auth::id();
+            $data["save"] = $request->file("bannerInput")->store("save", "public");
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSavesRequest $request)
-    {
+            Saves::create($data);
+            return response()->json([
+                "status" => true,
+                "message" => "Mentés sikeresen hozzáadva"
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => false,
+                "message" => "Hiba történt: " . $e->getMessage()
+            ], 500);
+        }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Saves $saves)
     {
-        //
+        return response()->json([
+        "status"=>true,
+        "message" => "Megvannak a mentés adatai.",
+        "saves"=>$saves
+        ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Saves $saves)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSavesRequest $request, Saves $saves)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Saves $saves)
     {
         $saves->delete();
-        return response()->json([$saves, "msg" => "A mentés törlése sikeresen megtörtént."]);
+        return response()->json([
+        "status"=>true,
+        "message" => "A mentés törlése sikeresen megtörtént."]);
     }
-    public function restore($save)
+    public function restore(Saves $save)
     {
         $saves = Saves::withTrashed()->find($save);
         $saves->restore();
-        return response()->json([$saves, "msg" => "A mentés visszaállítása sikeresen megtörtént."]);
+        return response()->json([
+        "status"=>true,
+        "message" => "A mentés visszaállítása sikeresen megtörtént.",
+        "saves"=>$saves,]);
     }
 }

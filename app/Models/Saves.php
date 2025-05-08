@@ -11,4 +11,8 @@ class Saves extends Model
     /** @use HasFactory<\Database\Factories\SavesFactory> */
     use HasFactory;
     use SoftDeletes;
+    protected $fillable=[
+        "users_Id",
+        "save"
+    ];
 }
