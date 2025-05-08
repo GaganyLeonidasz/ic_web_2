@@ -5,7 +5,7 @@ import { myAppHook } from "@/context/AppProvider";
 const Navbar = () =>{
     const {logout, authToken} = myAppHook();
     return <>
-     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+     <nav className="navbar navbar-expand-lg navbar-dark bg-black">
         <div className="container">
             <Link className="navbar-brand" href="/">Homepage</Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
