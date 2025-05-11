@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SavesController;
 
 
-/*Route::patch("/users/{user}/restore", [UserController::class, "restore"])->name("users.restore");
-Route::get("/users/{user}/saves",[SavesController::class,"index"])->name("users.saves");*/
+/*Route::patch("/users/{user}/restore", [UserController::class, "restore"])->name("users.restore");*/
 
 Route::post('/users/register',[UserController::class,'register']);
 Route::post('/users/login',[UserController::class,'login']);
@@ -18,8 +17,6 @@ Route::group([
 ],function(){
     Route::get('/users/profile',[UserController::class,'profile']);
     Route::get('/users/logout',[UserController::class,'logout']);
-    //Route::resource('saves', SavesController::class);
-    //Route::put('/saves/store',[SavesController::class,'store']);
     Route::post('/saves/store',[SavesController::class,'store']);
     Route::get('/saves',[SavesController::class,'index']);
 });
