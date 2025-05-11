@@ -1,12 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { myAppHook } from "@/context/AppProvider";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
-import { log } from "console";
 
 const Dashboard: React.FC = () => {
     
@@ -89,7 +87,7 @@ const Dashboard: React.FC = () => {
             })
         }
     }
-    const handleDeleteSave = async(id:number) =>{
+    /*const handleDeleteSave = async(id:number) =>{
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -121,7 +119,7 @@ const Dashboard: React.FC = () => {
                 }
             }
           });
-    }
+    }*/
     //Osszes mentes
     const fetchAllSaves = async()=>{
         try {
@@ -150,7 +148,7 @@ const Dashboard: React.FC = () => {
                         onChange={handleOnChangeEvent}
                         id="bannerInput"/>
                         <button 
-                        className="btn btn-primary" 
+                        className="btn btn-dark" 
                         type="submit">Add Save</button>
                     </form>
                 </div>

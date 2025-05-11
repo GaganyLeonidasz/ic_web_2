@@ -114,7 +114,7 @@ const Auth: React.FC = () => {
                     />
                     )
                 }
-                <button className="btn btn-primary w-100" type="submit">{isLogin?"Login":"Register"}</button>
+                <button className="btn btn-dark w-100" type="submit">{isLogin?"Login":"Register"}</button>
             </form>
 
             <p className="mt-3 text-center">
