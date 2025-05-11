@@ -1,9 +1,7 @@
 "use client"
-
 import React, { useEffect, useState } from "react";
 import { myAppHook } from "@/context/AppProvider";
 import {useRouter} from "next/navigation";
-
 //form adat tipus
 interface formData {
     name?:string,
@@ -11,9 +9,7 @@ interface formData {
     password:string,
     password_confirmation?:string
 }
-
 const Auth: React.FC = () => {
-
     //bevan e jelentketve
     const [isLogin,setIsLogin] = useState<boolean>(true)
     //form data
@@ -66,11 +62,34 @@ const Auth: React.FC = () => {
             }
         }
     }
-
+const backgroundImageUrl = "/img/home_background.jpg";
     return <>
-         <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="card p-4" style={{width: "400px"}}>
-            <h3 className="text-center">{isLogin ? "Login":"Register"}</h3>
+    <style>{`
+        .bg-image {
+          background-image: url('${backgroundImageUrl}');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: relative;
+          color: white;
+        }
+        .bg-image::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+          z-index: 0;
+        }
+        .bg-image > .container {
+          position: relative;
+          z-index: 1;
+      `}</style>
+         <div className="d-flex justify-content-center align-items-center vh-100 bg-image">
+        <div className="card p-4" style={{width: "400px", borderRadius: "30px"}}>
+            <h3 className="text-center mb-4" style={{fontWeight:"bold"}}>{isLogin ? "Login":"Register"}</h3>
             <form onSubmit={handleFormSubmit}>
                 {
                     !isLogin && (
@@ -84,7 +103,6 @@ const Auth: React.FC = () => {
                     />
                 )
                 }
-
                 <input className="form-control mb-2" 
                 name="email" 
                 type="email"
@@ -93,7 +111,6 @@ const Auth: React.FC = () => {
                 placeholder="Email" 
                 required
                 />
-
                 <input className="form-control mb-2" 
                 name="password" 
                 type="password"
@@ -119,7 +136,7 @@ const Auth: React.FC = () => {
 
             <p className="mt-3 text-center">
                 {isLogin ? "Don't have an account? ":"Already have an account? "}
-                <span onClick={()=>setIsLogin(!isLogin)} style={{cursor:"pointer"}}>
+                <span onClick={()=>setIsLogin(!isLogin)} style={{cursor:"pointer", fontWeight:"bold"}}>
                     {
                         isLogin ? "Register":"Login"
                     }
@@ -127,8 +144,6 @@ const Auth: React.FC = () => {
             </p>
         </div>
     </div>
-        
     </>
 }
-
 export default Auth;

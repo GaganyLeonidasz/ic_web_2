@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "InterCelestial Webpage",
   description: "Homepage of the InterCelestial intergalactic videogame",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,6 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body >
+        <audio autoPlay loop>
+            <source src="/soundtracks/menu4.mp3" type="audio/mpeg"/>
+        </audio>
         <AppProvider>
         <Toaster></Toaster>
         <Navbar></Navbar>

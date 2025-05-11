@@ -1,9 +1,18 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   const backgroundImageUrl = "/img/home_background.jpg";
-
+  const handleDownload = () => {
+  const url = "/Game/game.zip"; // your file URL
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "InterCelestial.zip"; // optional: specify filename like "manual.pdf"
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
   return (
     <>
       <style>{`
@@ -47,20 +56,16 @@ export default function Home() {
         .card:hover {
           transform: scale(1.05);
            border: none;
-  border-radius: 15px; /* Rounded corners */
-  transition: transform 0.3s; /* Smooth transition for hover effect */
+  border-radius: 15px;
+  transition: transform 0.3s;
         }
-        
-
       `}</style>
-
       <section className="bg-image text-white text-center py-5">
         <div className="container">
           <h1 className="display-4 fw-bold">InterCelestial Webpage</h1>
           <p className="lead">Homepage of the InterCelestial intergalactic war videogame</p>
-          <Link href="/auth" className="btn btn-light btn-lg mt-3">Get Started</Link>
+          <button className="btn btn-light" onClick={handleDownload}>Download now!</button>
         </div>
-
         <div className="container mt-5">
           <h2 className="fw-bold mb-4">About the Game</h2>
           <p>
@@ -70,7 +75,6 @@ export default function Home() {
             Players will navigate through star systems, each with unique resources and challenges. You can choose to dominate through military might, engaging in tactical space battles against rival factions, or you can opt for a more diplomatic approach, trading valuable resources and technology to build a powerful economy. The choice is yours, and every decision shapes the fate of your empire.
           </p>
         </div>
-
         <div className="container mt-5">
           <h3 className="fw-bold mb-4">The Story</h3>
           <p>
@@ -106,8 +110,7 @@ export default function Home() {
                 </div>
               </div>
               </a>
-            </div>
-            
+            </div>    
             <div className="col-md-4 mb-4">
             <a 
     href="https://www.instagram.com/agagany_" 

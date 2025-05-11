@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const Dashboard: React.FC = () => {
-    
     //save tipus
     interface SaveType{
         id:number,
@@ -15,7 +14,6 @@ const Dashboard: React.FC = () => {
         "file"?:string,
         "bannerInput"?:File|null
     }
-
     const API_URL=`${process.env.NEXT_PUBLIC_API_URL}`
     //authtoken miatt kell
     const{isLoading,authToken} = myAppHook();
@@ -38,7 +36,6 @@ const Dashboard: React.FC = () => {
         }
         fetchAllSaves();
     },[authToken])
-
     //Form bekuldese
     const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
@@ -71,7 +68,6 @@ const Dashboard: React.FC = () => {
     }
     //Adat valtozasa eseten fut le
     const handleOnChangeEvent = (event: React.ChangeEvent<HTMLInputElement>)=>{
-
         if (event.target.files) {
         //Beadjuk az adatokat
             setFormData({
@@ -135,11 +131,11 @@ const Dashboard: React.FC = () => {
         }
     }
     return <>
-         <div className="container mt-4">
+         <div className="container mt-5">
         <div className="row">
             <div className="col-md-6">
                 <div className="card p-4">
-                    <h4>Add Save</h4>
+                    <h4>Upload Save</h4>
                     <form onSubmit={handleFormSubmit}>
                         <input 
                         className="form-control mb-2"
@@ -171,7 +167,6 @@ const Dashboard: React.FC = () => {
                                 )
                             )
                         }
-                       
                     </tbody>
                 </table>
             </div>

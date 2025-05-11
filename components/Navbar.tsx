@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { myAppHook } from "@/context/AppProvider";
-
 const Navbar = () =>{
     const {logout, authToken} = myAppHook();
     return <>
@@ -20,7 +19,7 @@ const Navbar = () =>{
                             <Link className="nav-link" href="/dashboard">Dashboard</Link>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-light ms-2" onClick={logout}>Logout</button>
+                            <button className="btn btn-dark ms-2" onClick={logout}>Logout</button>
                         </li>
                         </>
                         ):(
@@ -34,16 +33,11 @@ const Navbar = () =>{
                             </>
                             )
                     }
-
-
                 </ul>
             </div>
         </div>
     </nav>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     </>
 }
-
 export default Navbar;

@@ -5,8 +5,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import {useRouter} from "next/navigation";
-
-
 //App provider tipus
 interface AppProviderType{
     //login func
@@ -23,7 +21,6 @@ interface AppProviderType{
 //context
 const AppContext = createContext<AppProviderType|undefined>(undefined)
 const API_URL=`${process.env.NEXT_PUBLIC_API_URL}`
-
 //Provider export
 export const AppProvider = ({
     children,
@@ -68,8 +65,7 @@ export const AppProvider = ({
                 toast.error("Invalid login details")
             }
         }
-        catch(error){
-            
+        catch(error){   
         }
         finally{
             setIsLoading(false);
@@ -107,10 +103,8 @@ export const AppProvider = ({
         </AppContext.Provider>
     )
   }
-
 export const myAppHook = () =>{
     const context = useContext(AppContext);
-
     if (!context) {
         throw new Error("Context will be wrapped inside AppProvider")
     }
