@@ -31,7 +31,7 @@ class SavesController extends Controller
             Saves::create($data);
             return response()->json([
                 "status" => true,
-                "message" => "Mentés sikeresen hozzáadva"
+                "message" => "Save successfully created"
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -44,7 +44,7 @@ class SavesController extends Controller
     {
         return response()->json([
         "status"=>true,
-        "message" => "Megvannak a mentés adatai.",
+        "message" => "Got the save's data.",
         "saves"=>$saves
         ]);
     }
@@ -53,7 +53,7 @@ class SavesController extends Controller
         $saves->delete();
         return response()->json([
         "status"=>true,
-        "message" => "A mentés törlése sikeresen megtörtént."]);
+        "message" => "Save deleted successfully."]);
     }
     public function restore(Saves $save)
     {
@@ -61,7 +61,7 @@ class SavesController extends Controller
         $saves->restore();
         return response()->json([
         "status"=>true,
-        "message" => "A mentés visszaállítása sikeresen megtörtént.",
+        "message" => "Save restored successfully.",
         "saves"=>$saves,]);
     }
 }

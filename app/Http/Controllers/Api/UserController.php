@@ -25,7 +25,7 @@ class UserController extends Controller
             if ($validateUser->fails()) {
                 return response()->json([
                     'status'=>false,
-                    'message'=> 'Validációs hiba',
+                    'message'=> 'Validation error',
                     'errors'=>$validateUser->errors()
                 ],401);
             }
@@ -37,7 +37,7 @@ class UserController extends Controller
             ]);
             return response()->json([
                 'status'=>true,
-                'message'=>'Felhasználó sikeresen létrejött',
+                'message'=>'User created successfully',
             ],200);
         } 
         catch(\Throwable $th){
@@ -57,7 +57,7 @@ class UserController extends Controller
             if ($validateUser->fails()) {
                 return response()->json([
                     'status'=>false,
-                    'message'=>'Validációs hiba',
+                    'message'=>'Validation error',
                     'errors'=> $validateUser->errors()
                 ],401);
             }
@@ -65,13 +65,13 @@ class UserController extends Controller
             if (!Auth::attempt($request->only(['email','password']))){
                 return response()->json([
                     'status'=>false,
-                    'message'=>'Az email és jelszó nem egyezik egy felhasználóéval sem'
+                    'message'=>'The credentials are wrong'
                 ],401);
             }
             $user = Users::where('email',$request->email)->first();
             return response()->json([
                 'status'=>true,
-                'message'=>'Felhasználó sikeresen belépett',
+                'message'=>'The user logged in successfully',
                 'token'=>$user->createToken("API TOKEN")->plainTextToken
             ],200);
         } catch(Throwable $th){
@@ -87,7 +87,7 @@ class UserController extends Controller
 
         return response()->json([
             "status"=>true,
-            "message"=>"Felhasználó profil adat",
+            "message"=>"User profile data",
             "user"=>$user
         ]);
     }
@@ -97,18 +97,18 @@ class UserController extends Controller
 
         return response()->json([
             "status"=>true,
-            "message"=>"Felhasználó sikeresen kilépett",
+            "message"=>"User logged out successfully",
         ]);
     }
     public function destroy(Users $users)
     {
         $users->delete();
-        return response()->json([$users, "msg" => "A felhasználó törlése sikeresen megtörtént."]);
+        return response()->json([$users, "msg" => "User deleted successfully."]);
     }
     public function restore($user)
     {
         $users = Users::withTrashed()->find($user);
         $users->restore();
-        return response()->json([$users, "msg" => "A felhasználó visszaállítása sikeresen megtörtént."]);
+        return response()->json([$users, "msg" => "User restored successfully."]);
     }
 }
